@@ -980,7 +980,7 @@ function formPlanos(){
 function vMensal(){
   const todos=alunosDoMes(mes).map(a=>({a,st:statusAluno(a,mes)}));
   const cont={todos:todos.length,pago:todos.filter(x=>x.st.s==='pago').length,pend:todos.filter(x=>x.st.s==='pend').length,atr:todos.filter(x=>x.st.s==='atr').length};
-  const lista=todos.filter(x=>filtroMens==='todos'||x.st.s===filtroMens).sort((x,y)=>({atr:0,pend:1,pago:2}[x.st.s]-{atr:0,pend:1,pago:2}[y.st.s])||x.a.dia-y.a.dia);
+  const lista=todos.filter(x=>filtroMens==='todos'||x.st.s===filtroMens).sort((x,y)=>({atr:0,pend:1,pago:2}[x.st.s]-{atr:0,pend:1,pago:2}[y.st.s])||(x.st.s==='pago'&&y.st.s==='pago'?String(x.st.p.data||'').localeCompare(String(y.st.p.data||''))||x.a.nome.localeCompare(y.a.nome):x.a.dia-y.a.dia));
   const r=resumo(mes);
   $('#view').innerHTML=`
   <div class="grid kpis" style="margin-bottom:12px">
